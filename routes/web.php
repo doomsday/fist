@@ -27,8 +27,9 @@ Route::get('cats', function() {
 });
 
 Route::get('cats/{id}', function($id) {
-    return sprintf('Cat #%s', $id);
-})->where('id', '[0-9]+');
+    $cat = Furbook\Cat::find($id);
+    return view('cats.show')->with('cat', $cat);
+});
 
 Route::get('cats/breeds/{name}', function($name) {
    $breed = Furbook\Breed::with('cats')->whereName($name)->first();
