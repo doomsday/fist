@@ -17,13 +17,40 @@
 
 use Illuminate\Support\Facades\Route;
 
+// Redirects
+
 Route::get('/', function() {
     return redirect('cats');
 });
 
+Route::post('cats', function() {
+    $cat = Furbook\Cat::create(Input::all());  // Input::all() - retrieve an array of all the input data.
+    return redirect('cats/'.$cat->id)->withSuccess('Cat has been created.');
+});
+
+Route::put('cats/{cat}', function(Furbook\Cat $cat) {
+    $cat->update(Input::all());
+    return redirect('cats/'.$cat->id)->withSuccess('Cat has been updated.');
+});
+
+Route::delete('cats/{cat}', function(Furbook\Cat $cat) {
+    $cat->delete();
+    return redirect('cats')->withSuccess('Cat has been deleted.');
+});
+
+// Views
+
 Route::get('cats', function() {
     $cats = Furbook\Cat::all();
     return view('cats.index')->with('cats', $cats);
+});
+
+Route::get('cats/create', function() {
+    return view('cats.create');
+});
+
+Route::get('cats/{cat}/edit', function(Furbook\Cat $cat) {
+    return view('cats.edit')->with('cat', $cat);
 });
 
 Route::get('cats/{id}', function($id) {

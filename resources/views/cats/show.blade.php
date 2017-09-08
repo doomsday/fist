@@ -6,11 +6,11 @@
         {{ $cat->name }}
     </h2>
     <a href="{{ url('cats/'.$cat->id.'/edit') }}">
-        <span class="glyphicon glyphicon-edit"></span>
+        <span class="fa fa-pencil-square-o"></span>
         Edit
     </a>
     <a href="{{ url('cats/'.$cat->id.'/delete') }}">
-        <span class="glyphicon glyphicon-trash"></span>
+        <span class="fa fa-trash-o"></span>
         Delete
     </a>
     <p>Last edited: {{ $cat->updated_at->diffForHumans() }}</p>

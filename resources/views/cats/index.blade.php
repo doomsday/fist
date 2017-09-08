@@ -12,6 +12,7 @@
         </a>
     </h2>
 @stop
+
 @section('content')
     @foreach($cats as $cat)
         <div class="cat">
