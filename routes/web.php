@@ -66,3 +66,7 @@ Route::get('cats/breeds/{name}', function($name) {
 Route::get('about', function(){
     return view('about')->with('number_of_cats', 9000);
 });
+
+// Controllers
+
+Route::get('user/{id}', ['uses' => 'UserController@show']);
