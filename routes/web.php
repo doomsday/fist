@@ -19,20 +19,24 @@ use Illuminate\Support\Facades\Route;
 
 // Closure-based route actions.
 
+// GET '/'
 Route::get('/', function() {
     return redirect('cat');
 });
 
+// PUT '/cat/{cat}'
 Route::put('cat/{cat}', function(Furbook\Cat $cat) {
     $cat->update(Input::all());
     return redirect('cat/'.$cat->id)->withSuccess('Cat has been updated.');
 });
 
+// GET '/cat/breeds/{name}'
 Route::get('cat/breeds/{name}', function($name) {
    $breed = Furbook\Breed::with('cats')->whereName($name)->first();
    return view('cats.index')->with('breed', $breed)->with('cats', $breed->cats);
 });
 
+// GET '/about'
 Route::get('about', function(){
     return view('about')->with('number_of_cats', 9000);
 });

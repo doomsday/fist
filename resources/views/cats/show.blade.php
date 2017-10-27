@@ -5,11 +5,11 @@
     <h2>
         {{ $cat->name }}
     </h2>
-    <a href="{{ url('cats/'.$cat->id.'/edit') }}">
+    <a href="{{ url('cat/'.$cat->id.'/edit') }}">
         <span class="fa fa-pencil-square-o"></span>
         Edit
     </a>
-    <a href="{{ url('cats/'.$cat->id.'/delete') }}">
+    <a href="{{ url('cat/'.$cat->id.'/delete') }}">
         <span class="fa fa-trash-o"></span>
         Delete
     </a>
@@ -21,7 +21,7 @@
     <p>
         @if ($cat->breed)
             Breed:
-            {{ link_to('cats/breeds/'.$cat->breed->name, $cat->breed->name) }}
+            {{ link_to('cat/breeds/'.$cat->breed->name, $cat->breed->name) }}
         @endif
     </p>
 @stop

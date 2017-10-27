@@ -5,7 +5,6 @@ namespace Furbook\Http\Controllers;
 use Furbook\Cat;
 use Illuminate\Http\Request;
 
-
 class CatController extends Controller
 {
     // POST '/cat'
