@@ -13,7 +13,7 @@ return [
     |
     */
 
-    'default' => env('DB_CONNECTION', 'mysql'),
+    'default' => env('DB_CONNECTION', 'sqlite_memory'),
 
     /*
     |--------------------------------------------------------------------------
@@ -37,6 +37,11 @@ return [
             'driver' => 'sqlite',
             'database' => env('DB_DATABASE', database_path('database.sqlite')),
             'prefix' => '',
+        ],
+
+        'sqlite_memory' => [
+            'driver' => 'sqlite',
+            'database' => ':memory:'
         ],
 
         'mysql' => [
