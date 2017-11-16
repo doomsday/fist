@@ -8,8 +8,20 @@
 
 use Furbook\User;
 use Tests\TestCase;
+use Goutte\Client;
 
 class RenderedViewsTest extends TestCase {
+
+    public function setUp()
+    {
+        parent::setUp();
+    }
+
+    public function tearDown()
+    {
+        parent::tearDown();
+
+    }
 
     // Inspect the contents of a rendered view.
     public function testAdminCanEditCat() {
@@ -18,8 +30,9 @@ class RenderedViewsTest extends TestCase {
         $newName = 'Berlioz';
         $this->call('PUT', '/cat/1', ['name' => $newName]);
 
-        $crawler = $this->client->request('GET', '/cat/1'); // FIXME: Find crawler
+        $client = new Client();
+
+        $crawler = $client->request('GET', 'http://dev.furbook.com/cat/1');
         $this->assertCount(1, $crawler->filter('h2:contains("'.$newName.'")'));
     }
-
 }
