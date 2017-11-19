@@ -1,18 +1,17 @@
-@extends('layouts.master')
+@extends('layouts.app')
 
 @section('header')
     <a href="{{ url('/') }}">Back to overview</a>
     <h2>
         {{ $cat->name }}
     </h2>
-    <a href="{{ url('cat/'.$cat->id.'/edit') }}">
+    <a href="{{ route('cat.edit', $cat->id) }}">
         <span class="fa fa-pencil-square-o"></span>
         Edit
     </a>
-    <a href="{{ url('cat/'.$cat->id.'/delete') }}">
-        <span class="fa fa-trash-o"></span>
-        Delete
-    </a>
+
+    <a href="{{ url('cat/'.$cat->id.'/delete') }}">Delete</a>
+
     <p>Last edited: {{ $cat->updated_at->diffForHumans() }}</p>
 @stop
 

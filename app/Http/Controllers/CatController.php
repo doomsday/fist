@@ -4,9 +4,16 @@ namespace Furbook\Http\Controllers;
 
 use Furbook\Cat;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Input;
 
 class CatController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     // POST '/cat'
     public function store(Request $request)
     {
@@ -35,7 +42,7 @@ class CatController extends Controller
     }
 
     // GET '/cat/{id}/edit'
-    public function edit($cat)
+    public function edit(Cat $cat)
     {
         return view('cats.edit')->with('cat', $cat);
     }
@@ -45,5 +52,10 @@ class CatController extends Controller
     {
         $cat = Cat::find($id);
         return view('cats.show')->with('cat', $cat);
+    }
+
+    public function update(Cat $cat) {
+        $cat->update(Input::all());
+        return redirect('cat/'.$cat->id)->withSuccess('Cat has been updated.');
     }
 }
