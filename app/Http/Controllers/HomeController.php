@@ -25,4 +25,8 @@ class HomeController extends Controller
     {
         return view('home');
     }
+
+    public function about() {
+        return view('about')->with('number_of_cats', 9000);
+    }
 }

@@ -1,6 +1,7 @@
 <?php
 
 namespace Furbook\Http\Views\Composers;
+
 use Furbook\Breed;
 use Illuminate\Contracts\View\View;
 

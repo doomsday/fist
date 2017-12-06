@@ -2,6 +2,7 @@
 
 namespace Furbook\Http\Controllers;
 
+use Furbook\Breed;
 use Furbook\Cat;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Input;
@@ -11,12 +12,31 @@ class CatController extends Controller
 
     public function __construct()
     {
+        // Attaches the auth middleware to all requests that will be handled by the CatController.
         $this->middleware('auth');
+    }
+
+    // GET '/cat/breeds/{name}'
+    public function catBreeds($name) {
+        $breed = Breed::with('cats')->whereName($name)->first();
+        return view('cats.index')->with('breed', $breed)->with('cats', $breed->cats);
+    }
+
+    // GET '/cat/{cat}/delete
+    public function catDelete(Cat $cat) {
+        $cat->delete();
+        return redirect('cat')->withSuccess('Cat has been deleted.');
     }
 
     // POST '/cat'
     public function store(Request $request)
     {
+        // All of the validation errors will automatically be flashed to the session.
+        $request->validate([
+            'name' => 'required|min:3',
+            'date_of_birth' => ['required', 'date']
+        ]);
+
         $cat = Cat::create($request->all());  // Input::all() - retrieve an array of all the input data.
         return redirect('cat/' . $cat->id)->withSuccess('Cat has been created.');
     }
@@ -54,6 +74,7 @@ class CatController extends Controller
         return view('cats.show')->with('cat', $cat);
     }
 
+    // PUT/PATCH '/cat/{cat}'
     public function update(Cat $cat) {
         $cat->update(Input::all());
         return redirect('cat/'.$cat->id)->withSuccess('Cat has been updated.');
