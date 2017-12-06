@@ -13,7 +13,9 @@ class SaveCatRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        // Since we're handling user authentication via middleware,
+        // we can simply switch this to return true instead.
+        return true;
     }
 
     /**
@@ -24,7 +26,8 @@ class SaveCatRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'name' => 'required|min:3',
+            'date_of_birth' => 'required|date'
         ];
     }
 }

@@ -4,7 +4,7 @@ namespace Furbook\Http\Controllers;
 
 use Furbook\Breed;
 use Furbook\Cat;
-use Illuminate\Http\Request;
+use Furbook\Http\Requests\SaveCatRequest;
 use Illuminate\Support\Facades\Input;
 
 class CatController extends Controller
@@ -23,19 +23,15 @@ class CatController extends Controller
     }
 
     // GET '/cat/{cat}/delete
-    public function catDelete(Cat $cat) {
+    public function catDelete(Cat $cat) {   // FIXME: CSRF VULNERABLE
         $cat->delete();
         return redirect('cat')->withSuccess('Cat has been deleted.');
     }
 
     // POST '/cat'
-    public function store(Request $request)
+    public function store(SaveCatRequest $request)
     {
-        // All of the validation errors will automatically be flashed to the session.
-        $request->validate([
-            'name' => 'required|min:3',
-            'date_of_birth' => ['required', 'date']
-        ]);
+        // All of the SaveCatRequest validation errors will automatically be flashed to the session.
 
         $cat = Cat::create($request->all());  // Input::all() - retrieve an array of all the input data.
         return redirect('cat/' . $cat->id)->withSuccess('Cat has been created.');
