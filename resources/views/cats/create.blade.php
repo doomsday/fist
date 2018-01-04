@@ -15,7 +15,7 @@
 @endif
 
 @section('content')
-    {!! Form::open(['url' => '/cat']) !!}
+    {!! Form::open(['url' => '/cat', 'files' => true]) !!}
     @include('partials.forms.cat')
     {!! Form::close() !!}
 @stop

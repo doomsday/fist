@@ -34,6 +34,8 @@ class CatController extends Controller
         // All of the SaveCatRequest validation errors will automatically be flashed to the session.
 
         $cat = Cat::create($request->all());  // Input::all() - retrieve an array of all the input data.
+        $cat->photo_path = $request->file('photo')->store('uploads/photos');
+        $cat->save();
         return redirect('cat/' . $cat->id)->withSuccess('Cat has been created.');
     }
 
